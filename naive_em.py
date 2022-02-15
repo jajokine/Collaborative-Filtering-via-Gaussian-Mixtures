@@ -25,7 +25,7 @@ def estep(X: np.ndarray, mixture: GaussianMixture) -> Tuple[np.ndarray, float]:
     
     n, d = X.shape                                             # Number of samples, dimensions
     mu, var, pi = mixture                                      # Mixture components
-    K = mu.shape[0]                                            # Number of mmixtures
+    K = mu.shape[0]                                            # Number of mixture components
 
     pre_exp = (2*np.pi*var)**(d/2)                             # (n, K)
 
@@ -33,11 +33,11 @@ def estep(X: np.ndarray, mixture: GaussianMixture) -> Tuple[np.ndarray, float]:
     post = np.exp(-post/(2*var))                               # Norm matrix / 2*var
     post = post/pre_exp                                        # Posterior (n, K)
 
-    numerator = post*pi
+    numerator = post*pi                                        # Posterior * mixing proportions
     
-    denominator = np.sum(numerator, axis=1).reshape(-1, 1)     # p(x;theta)
+    denominator = np.sum(numerator, axis=1).reshape(-1, 1)     # Sum over all posteriors
 
-    post = numerator/denominator                               # p(j|i)
+    post = numerator/denominator                               # p(j|x^(i))
 
     log_lh = np.sum(np.log(denominator), axis=0).item()        # Log-likelihood
 
@@ -56,7 +56,7 @@ def mstep(X: np.ndarray, post: np.ndarray) -> GaussianMixture:
     """
     
     n, d = X.shape                                              # Numer of samples, dimensions
-    K = post.shape[1]                                           # Numer of mixtures
+    K = post.shape[1]                                           # Numer of mixture components
 
     nj = np.sum(post, axis=0)                                   # Sum of posteriors, (K, )
 
@@ -66,7 +66,7 @@ def mstep(X: np.ndarray, post: np.ndarray) -> GaussianMixture:
 
     norms = np.linalg.norm(X[:, None] - mu, ord=2,axis=2)**2    # Norms, (K, d)
 
-    var = np.sum(post*norms, axis=0)/(nj*d)                     # Variance, shape is (K, )
+    var = np.sum(post*norms, axis=0)/(nj*d)                     # Variance, (K, )
 
     return GaussianMixture(mu, var, pi)
 
