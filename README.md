@@ -20,14 +20,14 @@ Additional helper functions were given to complete the project in two weeks of t
 
 DATASET
 
-      - toy_data.txt : A 2D dataset.
+      - toy_data.txt : A 2D dataset (250 by 2 matrix).
       
-      - netflix_incomplete.txt : Netflix dataset with missing entries to be completed.
+      - netflix_incomplete.txt : Netflix dataset with missing entries to be completed (1200 by 1200 matrix).
       
-      - netflix_complete.txt : Netflix dataset with missing entries completed.
+      - netflix_complete.txt : Netflix dataset with missing entries completed (1200 by 1200 matrix).
       
-      - test_incomplete.txt : Incomplete test dataset for testing code.
+      - test_incomplete.txt : Incomplete test dataset for testing code (20 by 5 matrix).
       
-      - test_comlete.txt : Complete test dataset for testing code.
+      - test_comlete.txt : Complete test dataset for testing code (20 by 5 matrix).
       
       - test_solutions.txt : Solutions for test dataset for testing code.
