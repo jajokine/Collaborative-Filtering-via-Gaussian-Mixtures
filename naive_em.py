@@ -87,9 +87,8 @@ def run(X: np.ndarray, mixture: GaussianMixture,
     """
 
     old_ll = None
-    new_ll = None  # Keep track of log-likelihood to check convergence
-
-    # Start the main loop
+    new_ll = None  
+    
     while old_ll is None or (new_ll - old_ll > 1e-6 * np.abs(new_ll)):
 
         old_ll = new_ll
