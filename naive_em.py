@@ -86,18 +86,18 @@ def run(X: np.ndarray, mixture: GaussianMixture,
         float: log-likelihood of the current assignment
     """
 
-    old_log_lh = None
-    new_log_lh = None  # Keep track of log-likelihood to check convergence
+    old_ll = None
+    new_ll = None  # Keep track of log-likelihood to check convergence
 
     # Start the main loop
-    while old_log_lh is None or (new_log_lh - old_log_lh > 1e-6*np.abs(new_log_lh)):
+    while old_ll is None or (new_ll - old_ll > 1e-6 * np.abs(new_ll)):
 
-        old_log_lh = new_log_lh
+        old_ll = new_ll
 
         # E-step
-        post, new_log_lh = estep(X, mixture)
+        post, new_ll = estep(X, mixture)
 
         # M-step
         mixture = mstep(X, post)
 
-    return mixture, post, new_log_lh
+    return mixture, post, new_ll
