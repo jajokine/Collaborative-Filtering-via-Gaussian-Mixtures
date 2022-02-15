@@ -10,7 +10,7 @@ the missing entries of a movie-based database where only a fraction of movie rat
 The goal was to construct a model so that each user's rating profile would come from a mixture model, in the way that
 there are K types of users, and in the context of each user, we should sample a user type and then the rating profile
 from the Gaussian distribution associated with the type (i.e. modeling the probability distribution of each class with a Gaussian distribution).
-The mixture was then to be estimated with the Expectation Maximization (EM) algorithm in two steps: by iterately assigning users to types (E-step)
+The mixture was then to be estimated with the Expectation Maximization (EM) algorithm in two steps: by iterately assigning users to different types (E-step),
 and subsequently re-estimating the Gaussians associated with each type (M-step). Once the right mixture were to be found,
 it would be used to predict all the missing values in the movie-rating matrix.
 
