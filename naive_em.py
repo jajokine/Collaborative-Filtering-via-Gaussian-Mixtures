@@ -14,7 +14,7 @@ from common import GaussianMixture
 def estep(X: np.ndarray, mixture: GaussianMixture) -> Tuple[np.ndarray, float]:
     """E-step: Softly assigns each datapoint to a gaussian component.
        Compared to the K-means, the model accounts also for the datapoint densities
-       (i.e. comparing points to each other inside the cluster) when
+       (i.e. comparing datapoints to other datapoints inside the cluster) when
        making the clustering decision (soft) instead of just measuring the distance to each point
        towards the cluster center (hard).
        
