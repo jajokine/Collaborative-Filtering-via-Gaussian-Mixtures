@@ -63,10 +63,10 @@ def mstep(X: np.ndarray, post: np.ndarray, mixture: GaussianMixture, min_varianc
     """
     
     n, d = X.shape                                                                                            # Number of rows, columns
-    mu, _, _ = mixture                                                                                        # Updated means
-    K = mu.shape[0]                                                                                           # Numer of mixture components
+    mu_hat, _, _ = mixture                                                                                    # Updated means
+    K = mu_hat.shape[0]                                                                                       # Numer of mixture components
 
-    pi = np.sum(post, axis=0) / n                                                                             # Update cluster probabilities (n_hat / n)
+    pi_hat = np.sum(post, axis=0) / n                                                                         # Update cluster probabilities (n_hat / n)
 
     identity_matrix = X.astype(bool).astype(int)                                                              # Boolean matrix of the data for updating
 
@@ -74,15 +74,15 @@ def mstep(X: np.ndarray, post: np.ndarray, mixture: GaussianMixture, min_varianc
     numerator = post.T @ X                                                                                    # (K, d)
     
     update_indices = np.where(denominator >= 1)                                                               # Check sample indices that have information 
-    mu[update_indices] = numerator[update_indices] / denominator[update_indices]                              # Update means, (K, d)
+    mu_hat[update_indices] = numerator[update_indices] / denominator[update_indices]                          # Update means, (K, d)
 
     denominator_var = np.sum(post * np.sum(identity_matrix, axis=1).reshape(-1, 1), axis=0)                   # Denominator for variances, (K,)
 
-    norms = np.sum(X**2, axis=1)[:, None] + (identity_matrix @ mu.T**2) - 2 * (X @ mu.T)                      # Norms, (K, d)
+    norms = np.sum(X**2, axis=1)[:, None] + (identity_matrix @ mu_hat.T**2) - 2 * (X @ mu_hat.T)              # Norms, (K, d)
 
     var = np.maximum(np.sum(post * norms, axis=0) / denominator_var, min_variance)                            # Update variances with a fixed threshold of 0.25, (K,)
 
-    return GaussianMixture(mu, var, pi)
+    return GaussianMixture(mu_hat, var_hat, pi_hat)
 
 
 def run(X: np.ndarray, mixture: GaussianMixture, post: np.ndarray) -> Tuple[GaussianMixture, np.ndarray, float]:
