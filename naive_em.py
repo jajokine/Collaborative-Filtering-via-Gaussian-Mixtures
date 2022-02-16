@@ -13,10 +13,10 @@ from common import GaussianMixture
 
 def estep(X: np.ndarray, mixture: GaussianMixture) -> Tuple[np.ndarray, float]:
     """E-step: Softly assigns each datapoint to a gaussian component.
-       Compared to the K-means, the model accounts also for the datapoint densities
-       (i.e. comparing datapoints to other datapoints inside the cluster) when
-       making the clustering decision (soft) instead of just measuring the distance to each point
-       towards the cluster center (hard).
+       Compared to the K-means, the model considers probability distributions (i.e. densities/concentrations
+       of the datapoints) when making the clustering decision (soft assignment) instead of just measuring the distance to each point
+       towards the cluster center (hard assignment). This ca lead to points being labeled to multiple different
+       clusters at the same time instead of each datapoint being part of solely one cluster.
        
     Args:
         X: (n, d) array holding the data
@@ -35,9 +35,9 @@ def estep(X: np.ndarray, mixture: GaussianMixture) -> Tuple[np.ndarray, float]:
 
     post = np.linalg.norm(X[:, None] - mu, ord=2, axis=2)**2   # Norm matrix
     post = np.exp(-post/(2*var))                               # Norm matrix / 2*var
-    post = post/pre_exp                                        # Posterior (n, K)
+    post = post / pre_exp                                      # Posterior (n, K)
 
-    numerator = post*pi                                        # Posterior * mixing proportions
+    numerator = post * pi                                      # Posterior * mixing proportions
     
     denominator = np.sum(numerator, axis=1).reshape(-1, 1)     # Sum over all posteriors
 
@@ -70,7 +70,7 @@ def mstep(X: np.ndarray, post: np.ndarray) -> GaussianMixture:
 
     norms = np.linalg.norm(X[:, None] - mu, ord=2,axis=2)**2    # Norms, (K, d)
 
-    var = np.sum(post*norms, axis=0)/(nj*d)                     # Variance, (K, )
+    var = np.sum(post*norms, axis=0)/(nj*d)                     # Variances, (K, )
 
     return GaussianMixture(mu, var, pi)
 
