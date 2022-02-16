@@ -60,7 +60,7 @@ def plot(X: np.ndarray, mixture: GaussianMixture, post: np.ndarray, title: str):
     ax.set_xlim((-20, 20))
     ax.set_ylim((-20, 20))
     r = 0.25
-    color = ["r", "b", "k", "y", "m", "c"]
+    color = ["r", "b", "k", "y", "m", "c", "orange", "royalblue", "lime", "deeppink", "darkred", "darkviolet"]
     
     for i, point in enumerate(X):
         theta = 0
