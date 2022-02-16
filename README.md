@@ -18,11 +18,11 @@ First, a K-means model was implemented to assign each points solely to one clust
 (i.e. hard assigning of clusters) before moving to calculating the clusters with the log-likelihoods of the datapoints (i.e. soft assigning of clusters).
 The mixture was estimated with the Expectation Maximization (EM) algorithm in two steps: by iterately assigning users to different types (E-step),
 and subsequently re-estimating the Gaussians associated with each type (M-step). Once the right mixture were to be found,
-it would be used to predict all the missing values in the movie-rating matrix.
+it would be used to predict all the missing values in the movie-rating matrix. Finally, for model selection, the models were compared
+with the Bayesian Information Criterion (BIC) which captures the tradeoff between the log-likelihood of the data,
+and the number of parameters that the model uses. 
 
-For model selection, all the models were then compared with the Bayesian Information Criterion (BIC) which captures the tradeoff between
-the log-likelihood of the data, and the number of parameters that the model uses. Finally, additional helper functions were given
-to complete the project in two weeks of time.
+Additional helper functions were given to complete the project in two weeks of time.
 
 DATASET
 
