@@ -5,18 +5,24 @@ Fourth Project - Collaborative Filtering Based on Gaussian Mixture Model
 
 The fourth project for the MIT MicroMasters Program course on Machine Learning with Python concentrated on
 unsupervised learning and collaborative filtering. The task of the project was to create a Generative Model that would predict
-the missing entries of a movie-based database where only a fraction of movie ratings were filled by the users.
-
-The goal was to construct a model so that each user's rating profile would come from a mixture model, in the way that
+the missing entries of a movie-based database where only a fraction of movie ratings were filled by the users. To be more precise,
+the goal was to construct a model so that each user's rating profile would come from a Gaussian Mixture Model, in the way that
 there are K types of users, and in the context of each user, we should sample a user type and then the rating profile
 from the Gaussian distribution associated with the type (i.e. modeling the probability distribution of each class with a Gaussian distribution).
-The mixture was then to be estimated with the Expectation Maximization (EM) algorithm in two steps: by iterately assigning users to different types (E-step),
+
+The mixture was estimated with the Expectation Maximization (EM) algorithm in two steps: by iterately assigning users to different types (E-step),
 and subsequently re-estimating the Gaussians associated with each type (M-step). Once the right mixture were to be found,
 it would be used to predict all the missing values in the movie-rating matrix.
 
-The project started by incorporting the Generative Model first to K-means clustering and then moving towards a Gaussian Mixture Model.
+First, a K-means model was implemented to assign each points solely to one cluster based on the means and variances of the cluster centerpoints
+(i.e. hard assigning of clusters) before moving to calculating the clusters with the log-likelihoods of the datapoints (i.e. soft assigning of clusters).
+The mixture was estimated with the Expectation Maximization (EM) algorithm in two steps: by iterately assigning users to different types (E-step),
+and subsequently re-estimating the Gaussians associated with each type (M-step). Once the right mixture were to be found,
+it would be used to predict all the missing values in the movie-rating matrix.
 
-Additional helper functions were given to complete the project in two weeks of time.
+For model selection, all the models were then compared with the Bayesian Information Criterion (BIC) which captures the tradeoff between
+the log-likelihood of the data, and the number of parameters that the model uses. Finally, additional helper functions were given
+to complete the project in two weeks of time.
 
 DATASET
 
