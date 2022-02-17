@@ -41,7 +41,7 @@ for k in range(len(K)):
         # Run Naive EM for Gaussian Mixtures
         mixtures_naive_EM[i], posts_naive_EM[i], log_likelihood_naive_EM[i] = naive_em.run(X, *common.init(X, K[k], seeds[i]))
     
-    print("=============== Number of Clusters:", K[k], "======================")
+    print("================= Clusters:", K[k], "=================")
     print("Lowest Cost (K-Means):", np.min(costs_Kmeans))
     print("Maximum Log-likelihood (EM):", np.max(log_likelihood_naive_EM))
     
@@ -56,7 +56,7 @@ for k in range(len(K)):
     # BIC score
     bic[k] = common.bic(X, mixtures_naive_EM[best_seed_naive_EM[k]], np.max(log_likelihood_naive_EM))
     
-print("================= BIC ====================")
+print("================= BIC =================")
 print("Best K for EM with Gaussian Mixtures (naive):", np.argmax(bic)+1)
 print("BIC Score:", np.max(bic))
 
@@ -86,7 +86,7 @@ for k in range(len(K)):
         # Run EM for Gaussian Mixtures, print and plot results      
         mixtures_EM[i], posts_EM[i], log_likelihood_EM[i] = em.run(netflix, *init(netflix, K[k], seeds[i]))
     
-    print("=============== Number of Clusters:", K[k], "======================")
+    print("================= Clusters:", K[k], "=================")
     print("Maximum Log-likelihood (EM):", np.max(log_likelihood_naive_EM))
     
     best_seed_EM[k] = np.argmax(log_likelihood_EM)
