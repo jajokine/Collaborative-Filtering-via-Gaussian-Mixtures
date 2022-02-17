@@ -11,22 +11,23 @@ import em
 #                                                                                              #
 # ---------------------------------------------------------------------------------------------#
 
-
+# Load data
 X = np.loadtxt("toy_data.txt")
 
+# Setup lists to iterate over
 K = [1, 2, 3, 4]    
 seeds = [0, 1, 2, 3, 4]    
 
-cost_kMeans = [0, 0, 0, 0, 0]
+cost_Kmeans = [0, 0, 0, 0, 0]
 log_likelihood_naive_EM = [0, 0, 0, 0, 0]
 
-best_seed_kMeans = [0, 0, 0, 0]
+best_seed_Kmeans = [0, 0, 0, 0]
 best_seed_naive_EM = [0, 0, 0, 0]
 
-mixtures_kMeans = [0, 0, 0, 0, 0]
+mixtures_Kmeans = [0, 0, 0, 0, 0]
 mixtures_naive_EM = [0, 0, 0, 0, 0]
 
-posts_kMeans = [0, 0, 0, 0, 0]
+posts_Kmeans = [0, 0, 0, 0, 0]
 posts_naive_EM = [0, 0, 0, 0, 0]
 
 bic = [0., 0., 0., 0.]
@@ -34,30 +35,30 @@ bic = [0., 0., 0., 0.]
 for k in range(len(K)):
     for i in range(len(seeds)):
         
-        # Run kMeans
-        mixtures_kMeans[i], posts_kMeans[i], cost_kMeans[i] = kmeans.run(X, *common.init(X, K[k], seeds[i]))
+        # Run K-means Clustering
+        mixtures_Kmeans[i], posts_Kmeans[i], cost_Kmeans[i] = kmeans.run(X, *common.init(X, K[k], seeds[i]))
         
-        # Run Naive EM
-        mixtures_EM[i], posts_EM[i], costs_EM[i] = naive_em.run(X, *common.init(X, K[k], seeds[i]))
+        # Run Naive EM for Gaussian Mixtures
+        mixtures_naive_EM[i], posts_naive_EM[i], log_likelihood_naive_EM[i] = naive_em.run(X, *common.init(X, K[k], seeds[i]))
     
-    print("=============== Number of Clusters:", k+1, "======================")
-    print("Lowest Cost (K-Means):", np.min(costs_kMeans))
+    print("=============== Number of Clusters:", K[k], "======================")
+    print("Lowest Cost (K-Means):", np.min(costs_Kmeans))
     print("Maximum Log-likelihood (EM):", np.max(log_likelihood_naive_EM))
     
-    # Best seeds
-    best_seed_kMeans[k] = np.argmin(cost_kMeans)
-    best_seed_EM[k] = np.argmax(log_likelihood_naive_EM) 
+    # Saving seed scores
+    best_seed_Kmeans[k] = np.argmin(cost_Kmeans)
+    best_seed_naive_EM[k] = np.argmax(log_likelihood_naive_EM) 
     
-    # Plot kMeans and EM results
-    common.plot(X, mixtures_kMeans[best_seed_kMeans[k]], posts_kMeans[best_seed_kMeans[k]], title="kMeans")
-    common.plot(X, mixtures_EM[best_seed_EM[k]], posts_EM[best_seed_EM[k]], title="EM") 
+    # Plot K-means Clustering and EM for Gaussian Mixtures results
+    common.plot(X, mixtures_Kmeans[best_seed_Kmeans[k]], posts_Kmeans[best_seed_Kmeans[k]], title="K-means Clustering")
+    common.plot(X, mixtures_naive_EM[best_seed_naive_EM[k]], posts_naive_EM[best_seed_naive_EM[k]], title="EM for Gaussian Mixtures (naive)") 
     
     # BIC score
-    bic[k] = common.bic(X, mixtures_EM[best_seed_EM[k]], np.max(costs_EM))
+    bic[k] = common.bic(X, mixtures_naive_EM[best_seed_naive_EM[k]], np.max(log_likelihood_naive_EM))
     
 print("================= BIC ====================")
-print("Best K is:", np.argmax(bic)+1)
-print("BIC for the best K is:", np.max(bic))
+print("Best K for EM with Gaussian Mixtures (naive):", np.argmax(bic)+1)
+print("BIC Score:", np.max(bic))
 
 
 # ---------------------------------------------------------------------------------------------#
@@ -66,9 +67,10 @@ print("BIC for the best K is:", np.max(bic))
 #                                                                                              #
 # ---------------------------------------------------------------------------------------------#
 
-
+# Load data
 netflix = np.loadtxt('netflix_incomplete.txt')
 
+# Setup lists to iterate over 
 K = [1, 2, 3, 12]    
 seeds = [0, 1, 2, 3, 4]    
 
@@ -81,19 +83,20 @@ bic = [0., 0., 0., 0.]
 for k in range(len(K)):
     for i in range(len(seeds)):
       
-        mixtures_EM[i], posts_EM[i], costs_EM[i] = em.run(netflix, *init(netflix, K[k], seeds[i]))
-    print("=============== Number of Clusters:", k+1, "======================")
+        mixtures_EM[i], posts_EM[i], log_likelihood_EM[i] = em.run(netflix, *init(netflix, K[k], seeds[i]))
+    
+    print("=============== Number of Clusters:", K[k], "======================")
     print("Maximum Log-likelihood (EM):", np.max(log_likelihood_naive_EM))
     
     best_seed_EM[k] = np.argmax(log_likelihood_EM)
     bic[k] = common.bic(X, mixtures_EM[seeds[k]], np.max(log_likelihood_EM))
     print("BIC:", bic[k])
     
-    plot(X, mixtures_EM[best_seed_EM[k]], posts_EM[best_seed_EM[k]], title="EM")
+    plot(X, mixtures_EM[best_seed_EM[k]], posts_EM[best_seed_EM[k]], title="EM for Gaussian Mixtures")
 
-# Make predictions
+# Make predictions to fill matrix
 netflix_pred = em.fill_matrix(netflix, mixtures_EM[best_seed_EM[k]])
 
-# Calculate RMSE
+# Calculate RMSE by comparing predicted matrix with full matrix
 netflix_gold = np.loadtxt('netflix_complete.txt')
 print("RMSE for Predictions:" common.rmse(netflix_gold, netflix_pred)
