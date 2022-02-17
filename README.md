@@ -28,11 +28,11 @@ DATASET
 
       - toy_data.txt : A 2D dataset (250 by 2 matrix).
       
-      - netflix_incomplete.txt : Netflix dataset with missing entries to be completed (1200 by 1200 matrix).
+      - netflix_incomplete.txt : Netflix dataset with missing entries to be completed (1200 by 1200 matrix with 1200 missing entries).
       
       - netflix_complete.txt : Netflix dataset with missing entries completed (1200 by 1200 matrix).
       
-      - test_incomplete.txt : Incomplete test dataset for testing code (20 by 5 matrix).
+      - test_incomplete.txt : Incomplete test dataset for testing code (20 by 5 matrix with 19 missing entries).
       
       - test_comlete.txt : Complete test dataset for testing code (20 by 5 matrix).
       
