@@ -82,7 +82,8 @@ bic = [0., 0., 0., 0.]
 
 for k in range(len(K)):
     for i in range(len(seeds)):
-      
+        
+        # Run EM for Gaussian Mixtures, print and plot results      
         mixtures_EM[i], posts_EM[i], log_likelihood_EM[i] = em.run(netflix, *init(netflix, K[k], seeds[i]))
     
     print("=============== Number of Clusters:", K[k], "======================")
