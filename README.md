@@ -25,7 +25,7 @@ to the full (given) matrix with RMSE.
 
 Additional helper functions were given to complete the project in two weeks of time.
 
-DATASET
+**DATASET**
 
       - toy_data.txt : A 2D dataset (250 by 2 matrix).
       
@@ -38,3 +38,7 @@ DATASET
       - test_comlete.txt : Complete test dataset for testing code (20 by 5 matrix with 100 entries).
       
       - test_solutions.txt : Solutions for test dataset for testing code.
+
+**ACCESSING CODE**
+
+The file main.py runs the code with the help of the three modules that contain the different models - kmeans.py, naive_em.py and em.py, as well as the file common.py that contains the main framework that is used by all the models.  The dependencies and requirements can be seen from requirements.txt that can be installed in shell with the command pip install -r requirements.txt.
