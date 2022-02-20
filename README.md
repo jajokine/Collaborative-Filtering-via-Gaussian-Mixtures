@@ -41,4 +41,8 @@ Additional helper functions were given to complete the project in two weeks of t
 
 **ACCESSING CODE**
 
-The file main.py runs the code with the help of the three modules that contain the different models - kmeans.py, naive_em.py and em.py, as well as the file common.py that contains the main framework that is used by all the models.  The dependencies and requirements can be seen from requirements.txt that can be installed in shell with the command pip install -r requirements.txt.
+The file main.py runs the code with the help of the three modules that contain the different models - kmeans.py, naive_em.py and em.py, as well as the file common.py that contains the main framework that is used by all the models.
+
+The dependencies and requirements can be seen from requirements.txt that can be installed in shell with the command:
+
+      pip install -r requirements.txt
