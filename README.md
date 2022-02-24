@@ -1,5 +1,6 @@
-# Collaborative-Filtering-via-Gaussian-Mixtures
-MITx - MicroMasters Program on Statistics and Data Science - Machine Learning with Python
+## Collaborative-Filtering-via-Gaussian-Mixtures
+
+# MITx - MicroMasters Program on Statistics and Data Science - Machine Learning with Python
 
 Fourth Project - Collaborative Filtering Based on Gaussian Mixture Model
 
@@ -25,7 +26,7 @@ to the full (given) matrix with RMSE.
 
 Additional helper functions were given to complete the project in two weeks of time.
 
-**DATASET**
+## Dataset
 
       - toy_data.txt : A 2D dataset (250 by 2 matrix).
       
@@ -39,7 +40,7 @@ Additional helper functions were given to complete the project in two weeks of t
       
       - test_solutions.txt : Solutions for test dataset for testing code.
 
-**ACCESSING CODE**
+## Access and requirements
 
 The file main.py runs the code with the help of the three modules that contain the different models - kmeans.py, naive_em.py and em.py, as well as the file common.py that contains the main framework that is used by all the models.
 
