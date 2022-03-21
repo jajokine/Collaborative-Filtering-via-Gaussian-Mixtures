@@ -12,7 +12,7 @@ import em
 # ---------------------------------------------------------------------------------------------#
 
 # Load data
-X = np.loadtxt("toy_data.txt")
+X = np.loadtxt("data\toy_data.txt")
 
 # Setup lists to iterate over
 K = [1, 2, 3, 4]    
@@ -68,7 +68,7 @@ print("BIC Score:", np.max(bic))
 # ---------------------------------------------------------------------------------------------#
 
 # Load data
-netflix = np.loadtxt('netflix_incomplete.txt')
+netflix = np.loadtxt('data\netflix_incomplete.txt')
 
 # Setup lists to iterate over 
 K = [1, 2, 3, 12]    
@@ -99,5 +99,5 @@ for k in range(len(K)):
 netflix_pred = em.fill_matrix(netflix, mixtures_EM[best_seed_EM[k]])
 
 # Calculate RMSE by comparing predicted matrix with full matrix
-netflix_gold = np.loadtxt('netflix_complete.txt')
+netflix_gold = np.loadtxt('data\netflix_complete.txt')
 print("RMSE for Predictions:" common.rmse(netflix_gold, netflix_pred)
